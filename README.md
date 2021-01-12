@@ -8,6 +8,7 @@ $ curl -v -X POST http://{client_id}:{client_secret}@localhost:5088/oauth/token 
 
 REQUEST HEADER
 =====
+- header
 ```
 Content-Type - Content type of the request body: application/x-www-form-urlencoded
 Authorization - Client credential for HTTP Basic authentication scheme (i.e., base64(client_id:client_secret)).
@@ -33,7 +34,7 @@ password
 
 RESPONSE BODY
 =====
-- message
+- json
 ```
 {
    "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiQlJBTkRfUkVTT1VSQ0UiXSwiZXhwIjoxNTU4MDU5MTYwLCJ1c2VyX25hbWUiOiJicmFuZDAxIiwiYXV0aG9yaXRpZXMiOlsidXBkYXRlX2JyYW5kIiwiY3JlYXRlX2JyYW5kIiwiZGVsZXRlX3RlbXBsYXRlIiwiY3JlYXRlX3RlbXBsYXRlIiwic2VsZWN0X2JyYW5kIiwicm9sZV9tZXNzYWdlIiwic2VsZWN0X2NoYXRib3QiLCJjcmVhdGVfY2hhdGJvdCIsInJvbGVfYnJhbmQiLCJyb2xlX3RlbXBsYXRlIiwicm9sZV9jaGF0Ym90IiwidXBkYXRlX2NoYXRib3QiLCJ1cGRhdGVfdGVtcGxhdGUiLCJjcmVhdGVfbWVzc2FnZSIsInNlbGVjdF90ZW1wbGF0ZSIsImRlbGV0ZV9icmFuZCIsImRlbGV0ZV9jaGF0Ym90Il0sImp0aSI6IjBkZGFlMDE1LTI3MGMtNGY1Zi1hN2JhLWY3MzdkMDNiMzA0NyIsImNsaWVudF9pZCI6ImJyYW5kX3BvcnRhbCJ9.EVAnI_nwV153zemTS7Lrss24OtVtJy3-g2MVeTRr-nmxaISTZhiri4fP_YN7TKfsdeEOzdFoaRAO4z-bsVvRM-0FhoqcMr0axVCC3aQlbw04be91VadRcinX-Ti5Mw2eM8VxGf4KX-Gu8YTZjz3mystFPZFkFI2J1ukN_vprwS0d9JZb2O-fUWNH5vLB7dnOCJcjXWUQ7RX_osSNwiWkTdtalaTwf6Z07DP3_wHoABsrD5fPxmYyZbgvha7zY2-6GrCqf1IBIv5cHyBqIimHS3YnJrBLmE1rfu5a7zbwE6ji3tOw9IgLBftjXFzaatNOT0iu4UphtFrd5tQPBvQ_jg",
