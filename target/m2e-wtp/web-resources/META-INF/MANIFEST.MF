@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: denni
+Build-Jdk: 15.0.1
+Implementation-Title: myapp-authserver
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: myapp
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-boot
+ -starter-parent/myapp-authserver
+Created-By: Maven Integration for Eclipse
+

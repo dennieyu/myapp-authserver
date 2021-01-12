@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="1 seconds">
+
+	<property name="LOG_TEMP" value="/home/myapp/HOME/log/myapp" />
+	<include resource="org/springframework/boot/logging/logback/base.xml" />
+	<property name="DEV_HOME" value="/home/myapp/HOME/log/myapp" />
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight([%-5level]) [%t] %logger{36} - %msg%n</Pattern>
+		</layout>
+	</appender>
+
+	<appender name="FILE-AUDIT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${DEV_HOME}/was/app-debug.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight([%-5level]) [%t] %logger{36} - %msg%n</Pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${DEV_HOME}/was/app-debug.%d{yyyy-MM-dd_HH}.%i.log</fileNamePattern><!-- rollover bytime -->
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>1GB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+
+	<appender name="FILE-ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${DEV_HOME}/was/app-error.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight([%-5level]) [%t] %logger{36} - %msg%n</Pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${DEV_HOME}/was/app-error.%d{yyyy-MM-dd}.%i.log</fileNamePattern><!-- rollover daily -->
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+
+	<!-- 3rd-party settings -->
+	<logger name="org.springframework.web" additivity="false">
+		<level value="DEBUG" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE-AUDIT" />
+	</logger>
+	<logger name="org.springframework.web.servlet" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE-AUDIT" />
+	</logger>
+	<logger name="org.springframework.security" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE-AUDIT" />
+	</logger>
+	<logger name="org.springframework.data" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE-AUDIT" />
+	</logger>
+	<logger name="com.zaxxer.hikari" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE-AUDIT" />
+	</logger>
+	<logger name="org.hibernate.jpa" additivity="false">
+		<level value="OFF" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE-AUDIT" />
+	</logger>
+	
+	<!-- application -->
+	<logger name="myapp" additivity="false">
+		<level value="DEBUG" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE-AUDIT" />
+	</logger>
+
+	<!-- jdbc -->
+	<logger name="jdbc" level="OFF" />
+
+	<!-- log4jdbc -->
+	<logger name="jdbc.connection" additivity="false">
+		<level value="OFF" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE-AUDIT" />
+	</logger>
+	<logger name="jdbc.audit" additivity="false">
+		<level value="OFF" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE-AUDIT" />
+	</logger>
+	<logger name="jdbc.sqlonly" additivity="false">
+		<level value="OFF" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE-AUDIT" />
+	</logger>
+	<logger name="jdbc.sqltiming" additivity="false">
+		<level value="DEBUG" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE-AUDIT" />
+	</logger>
+	<logger name="jdbc.resultset" additivity="false">
+		<level value="OFF" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE-AUDIT" />
+	</logger>
+	<logger name="jdbc.resultsettable" additivity="false">
+		<level value="OFF" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE-AUDIT" />
+	</logger>
+
+	<root level="info">
+		<appender-ref ref="STDOUT" />
+	</root>
+
+</configuration>
