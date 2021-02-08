@@ -37,22 +37,24 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
+		// @formatter:off
 		http.csrf().disable()
+			.headers().frameOptions().disable()
+			.and()
 				.exceptionHandling()
 				.authenticationEntryPoint(
-						(request, response, authException) -> {
-							log.error(authException.getMessage());
-							response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "unauthorized");
-						})
-				.and()
+					(request, response, authException) -> {
+						log.error(authException.getMessage());
+						response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "unauthorized");
+					})
+			.and()
 				.sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-				.and()
+			.and()
 				.authorizeRequests()
-				.antMatchers("/oauth/token*")
-				.permitAll()
-				.antMatchers("/**")
-				.authenticated();
+				.antMatchers("/oauth/token*").permitAll()
+				.anyRequest().authenticated();
+		// @formatter:on
 	}
 
 	@Override
