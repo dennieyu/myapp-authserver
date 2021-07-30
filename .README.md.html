@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>C:\javadev\workspace\2021\myapp-authserver\.README.md.html</title>
+<title>D:\dev\javadev\workspace\2021\myapp-authserver\.README.md.html</title>
 
 
 <style type="text/css">
@@ -641,10 +641,14 @@ function setDocumentScrollTop(ypos)
 <body class="markdown-body">
 <h1> <a id="curl" class="anchor" href="#curl" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CURL</h1> 
 <ul> 
- <li>command</li> 
+ <li> <p>command</p> 
+  <ul> 
+   <li>$ curl -v -X POST http://{client_id}:{client_secret}@localhost:5088/oauth/token -d grant_type=password -d username={username} -d password={password}</li> 
+   <li>$ curl -v -X POST http://{client_id}:{client_secret}@localhost:5088/oauth/token -d grant_type=refresh_token -d refresh_token={refresh_token}</li> 
+  </ul> </li> 
 </ul> 
 <pre><code>$ curl -v -X POST http://admin:password@localhost:5088/oauth/token -d grant_type=password -d username=admin01 -d password=password
-$ curl -v -X POST http://{client_id}:{client_secret}@localhost:5088/oauth/token -d grant_type=password -d refresh_token={refresh_token}
+$ curl -v -X POST http://admin:password@localhost:5088/oauth/token -d grant_type=refresh_token -d refresh_token=eyJhbGciOiJSUzI1Ni..
 </code></pre> 
 <h1> <a id="request-header" class="anchor" href="#request-header" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>REQUEST HEADER</h1> 
 <ul> 
