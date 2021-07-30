@@ -2,7 +2,7 @@
 -- postgresql
 -- ////////////////////////////////////////////////////////////////
 create database myapp encoding 'UTF-8';
-create user myapp password 'new1234!' CREATEDB;
+create user myapp password '1234' CREATEDB;
 create schema if not exists myapp authorization myapp;
 grant all privileges on database myapp to myapp;
 
@@ -85,14 +85,14 @@ INSERT INTO myapp.oauth_client_details (
 	('admin', 'password', 
 	'myapp', 
 	'role_brand, role_chatbot, role_template, role_message', 
-	'authorization_code, password, refresh_token, implicit', 
+	'authorization_code,password,refresh_token,implicit', 
 	NULL, NULL, 
 	60, 1209600, 
 	'{}', NULL), 
 	('user', 'password', 
 	'myapp', 
 	'role_message', 
-	'authorization_code, password, refresh_token, implicit', 
+	'authorization_code,password,refresh_token,implicit', 
 	NULL, NULL, 
 	60, 1209600, 
 	'{}', NULL);
@@ -139,7 +139,7 @@ INSERT INTO myapp.tbl_oauth_user (
 	USERNAME, PASSWORD, TYPE, ENABLED, ACCOUNT_EXPIRED, CREDENTIALS_EXPIRED, ACCOUNT_LOCKED) 
 	VALUES 
 	('admin01', 'password', 'ADMIN', true, false, false, false), 
-	('user01', 'password', 'USER', true', false, false, false);
+	('user01', 'password', 'USER', true, false, false, false);
 
 INSERT INTO myapp.tbl_oauth_role_user (
 	ROLE_ID, USER_ID)

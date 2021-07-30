@@ -6,10 +6,10 @@ spring:
     name: myapp-authserver
   datasource:
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    url: jdbc:log4jdbc:postgresql://192.168.7.35:5432/myapp?currentSchema=myapp
+    url: jdbc:log4jdbc:postgresql://localhost:5432/myapp?currentSchema=myapp
     hikari.maximum-pool-size: 10
     username: myapp
-    password: new1234!
+    password: 1234
     initialization-mode: never
     platform: postgresql
   jpa:
