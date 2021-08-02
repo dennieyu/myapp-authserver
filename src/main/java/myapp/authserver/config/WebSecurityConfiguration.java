@@ -47,23 +47,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.authorizeRequests().anyRequest().authenticated().and()
 				.formLogin().and()
 				.httpBasic();
-
-		// http.csrf().disable()
-		// .headers().frameOptions().disable()
-		// .and()
-		// .exceptionHandling()
-		// .authenticationEntryPoint(
-		// (request, response, authException) -> {
-		// log.error(authException.getMessage());
-		// response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "unauthorized");
-		// })
-		// .and()
-		// .sessionManagement()
-		// .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-		// .and()
-		// .authorizeRequests()
-		// .antMatchers("/oauth/token*").permitAll()
-		// .anyRequest().authenticated();
 	}
 
 	@Bean

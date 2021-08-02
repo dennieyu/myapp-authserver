@@ -639,42 +639,39 @@ function setDocumentScrollTop(ypos)
 
 </head>
 <body class="markdown-body">
-<h1> <a id="curl" class="anchor" href="#curl" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CURL</h1> 
+<h1> <a id="authorization_code" class="anchor" href="#authorization_code" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>authorization_code</h1> 
+<ul> 
+ <li> <p><a href="http://localhost:8080/oauth/authorize?response_type=code&amp;client_id=client&amp;redirect_uri=http%3A%2F%2Flocalhost%3A9000%2Fcallback&amp;scope=read_profile" rel="nofollow">http://localhost:8080/oauth/authorize?response_type=code&amp;client_id=client&amp;redirect_uri=http%3A%2F%2Flocalhost%3A9000%2Fcallback&amp;scope=read_profile</a></p> </li> 
+ <li> <p><a href="http://localhost:9000/callback?code=rBe22r" rel="nofollow">http://localhost:9000/callback?code=rBe22r</a></p> </li> 
+ <li> <p>command</p> 
+  <ul> 
+   <li>$ curl -v -X POST http://{client_id}:{client_secret}@localhost:8080/oauth/token -d code={code} -d grant_type=<strong><code>authorization_code</code></strong> -d redirect_uri={redirect_uri} -d scope={scope}</li> 
+  </ul> </li> 
+</ul> 
+<pre><code>$ curl -v -X POST http://client:password@localhost:8080/oauth/token -d code=rBe22r -d grant_type=authorization_code -d redirect_uri={redirect_uri} -d scope=read_profile
+</code></pre> 
+<h1> <a id="implicit" class="anchor" href="#implicit" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>implicit</h1> 
+<ul> 
+ <li> <p><a href="http://localhost:8080/oauth/authorize?response_type=token&amp;client_id=client&amp;redirect_uri=http%3A%2F%2Flocalhost%3A9000%2Fcallback&amp;scope=read_profile&amp;state=test" rel="nofollow">http://localhost:8080/oauth/authorize?response_type=token&amp;client_id=client&amp;redirect_uri=http%3A%2F%2Flocalhost%3A9000%2Fcallback&amp;scope=read_profile&amp;state=test</a></p> </li> 
+ <li> <p><a href="http://localhost:9000/callback#access_token=KpzuGBLYqXGR0RhjgrVyPubOkvA&amp;token_type=bearer&amp;state=test&amp;expires_in=119" rel="nofollow">http://localhost:9000/callback#access_token=KpzuGBLYqXGR0RhjgrVyPubOkvA&amp;token_type=bearer&amp;state=test&amp;expires_in=119</a></p> </li> 
+</ul> 
+<h1> <a id="password" class="anchor" href="#password" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>password</h1> 
 <ul> 
  <li> <p>command</p> 
   <ul> 
-   <li>$ curl -v -X POST http://{client_id}:{client_secret}@localhost:8080/oauth/token -d grant_type=password -d username={username} -d password={password}</li> 
-   <li>$ curl -v -X POST http://{client_id}:{client_secret}@localhost:8080/oauth/token -d grant_type=refresh_token -d refresh_token={refresh_token}</li> 
+   <li>$ curl -v -X POST http://{client_id}:{client_secret}@localhost:8080/oauth/token -d grant_type=<strong><code>password</code></strong> -d username={username} -d password={password} -d scope={scope}</li> 
   </ul> </li> 
 </ul> 
-<pre><code>$ curl -v -X POST http://admin:password@localhost:8080/oauth/token -d grant_type=password -d username=admin01 -d password=password
-$ curl -v -X POST http://admin:password@localhost:8080/oauth/token -d grant_type=refresh_token -d refresh_token=eyJhbGciOiJSUzI1Ni..
+<pre><code>$ curl -v -X POST http://client:password@localhost:8080/oauth/token -d grant_type=password -d username=user -d password=password -d scope=read_profile
 </code></pre> 
-<h1> <a id="request-header" class="anchor" href="#request-header" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>REQUEST HEADER</h1> 
+<h4> <a id="request-header" class="anchor" href="#request-header" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>REQUEST HEADER</h4> 
 <ul> 
  <li>header</li> 
 </ul> 
 <pre><code>Content-Type - Content type of the request body: application/x-www-form-urlencoded
 Authorization - Client credential for HTTP Basic authentication scheme (i.e., base64(client_id:client_secret)).
 </code></pre> 
-<h1> <a id="request-body" class="anchor" href="#request-body" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>REQUEST BODY</h1> 
-<ul> 
- <li>grant_type</li> 
-</ul> 
-<pre><code>password : The username and password are used.
-refresh_token : The refresh_token from a previous response to this request is used.
-</code></pre> 
-<ul> 
- <li>username</li> 
-</ul> 
-<pre><code>admin01 or user01
-</code></pre> 
-<ul> 
- <li>password</li> 
-</ul> 
-<pre><code>password
-</code></pre> 
-<h1> <a id="response-body" class="anchor" href="#response-body" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>RESPONSE BODY</h1> 
+<h4> <a id="response-body" class="anchor" href="#response-body" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>RESPONSE BODY</h4> 
 <ul> 
  <li>json</li> 
 </ul> 
@@ -685,6 +682,7 @@ refresh_token : The refresh_token from a previous response to this request is us
    &quot;expires_in&quot;: 599
 }
 </code></pre> 
+<h4> <a id="response-status" class="anchor" href="#response-status" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>RESPONSE STATUS</h4> 
 <ul> 
  <li>200 OK</li> 
 </ul> 
@@ -717,6 +715,24 @@ refresh_token : The refresh_token from a previous response to this request is us
  <li>502 Bad Gateway</li> 
 </ul> 
 <pre><code>Temporary internal server connection error.
+</code></pre> 
+<h1> <a id="client_credentials" class="anchor" href="#client_credentials" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>client_credentials</h1> 
+<ul> 
+ <li> <p>command</p> 
+  <ul> 
+   <li>$ curl -v -X POST http://{client_id}:{client_secret}@localhost:8080/oauth/token -d grant_type=<strong><code>client_credentials</code></strong> -d scope={scope}</li> 
+  </ul> </li> 
+</ul> 
+<pre><code>$ curl -v -X POST http://client:password@localhost:8080/oauth/token -d grant_type=client_credentials -d scope=read_profile
+</code></pre> 
+<h1> <a id="refresh_token" class="anchor" href="#refresh_token" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>refresh_token</h1> 
+<ul> 
+ <li> <p>command</p> 
+  <ul> 
+   <li>$ curl -v -X POST http://{client_id}:{client_secret}@localhost:8080/oauth/token -d grant_type=<strong><code>refresh_token</code></strong> -d refresh_token={refresh_token}</li> 
+  </ul> </li> 
+</ul> 
+<pre><code>$ curl -v -X POST http://client:password@localhost:8080/oauth/token -d grant_type=refresh_token -d refresh_token=eyJhbGciOiJSUzI1Ni..
 </code></pre>
 </body>
 </html>

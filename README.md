@@ -1,43 +1,48 @@
-CURL
+authorization_code
 =====
+
+- http://localhost:8080/oauth/authorize?response_type=code&client_id=client&redirect_uri=http%3A%2F%2Flocalhost%3A9000%2Fcallback&scope=read_profile
+
+- http://localhost:9000/callback?code=rBe22r
+
 - command
 
-   - $ curl -v -X POST http://{client_id}:{client_secret}@localhost:8080/oauth/token -d grant_type=password -d username={username} -d password={password}
-   - $ curl -v -X POST http://{client_id}:{client_secret}@localhost:8080/oauth/token -d grant_type=refresh_token -d refresh_token={refresh_token}
+   - $ curl -v -X POST http://{client_id}:{client_secret}@localhost:8080/oauth/token -d code={code} -d grant_type=**`authorization_code`** -d redirect_uri={redirect_uri} -d scope={scope}
 
 ```
-$ curl -v -X POST http://admin:password@localhost:8080/oauth/token -d grant_type=password -d username=admin01 -d password=password
-$ curl -v -X POST http://admin:password@localhost:8080/oauth/token -d grant_type=refresh_token -d refresh_token=eyJhbGciOiJSUzI1Ni..
+$ curl -v -X POST http://client:password@localhost:8080/oauth/token -d code=rBe22r -d grant_type=authorization_code -d redirect_uri={redirect_uri} -d scope=read_profile
 ```
 
-REQUEST HEADER
+
+implicit
 =====
+
+- http://localhost:8080/oauth/authorize?response_type=token&client_id=client&redirect_uri=http%3A%2F%2Flocalhost%3A9000%2Fcallback&scope=read_profile&state=test
+
+- http://localhost:9000/callback#access_token=KpzuGBLYqXGR0RhjgrVyPubOkvA&token_type=bearer&state=test&expires_in=119
+
+
+password
+=====
+
+- command
+
+   - $ curl -v -X POST http://{client_id}:{client_secret}@localhost:8080/oauth/token -d grant_type=**`password`** -d username={username} -d password={password} -d scope={scope}
+
+```
+$ curl -v -X POST http://client:password@localhost:8080/oauth/token -d grant_type=password -d username=user -d password=password -d scope=read_profile
+```
+
+#### REQUEST HEADER
+
 - header
 ```
 Content-Type - Content type of the request body: application/x-www-form-urlencoded
 Authorization - Client credential for HTTP Basic authentication scheme (i.e., base64(client_id:client_secret)).
 ```
 
-REQUEST BODY
-=====
-- grant_type
-```
-password : The username and password are used.
-refresh_token : The refresh_token from a previous response to this request is used.
-```
+#### RESPONSE BODY
 
-- username
-```
-admin01 or user01
-```
-
-- password
-```
-password
-```
-
-RESPONSE BODY
-=====
 - json
 ```
 {
@@ -47,6 +52,8 @@ RESPONSE BODY
    "expires_in": 599
 }
 ```
+
+#### RESPONSE STATUS
 
 - 200 OK
 ```
@@ -79,4 +86,28 @@ Temporary internal server error.
 - 502 Bad Gateway
 ```
 Temporary internal server connection error.
+```
+
+
+client_credentials
+=====
+
+- command
+
+   - $ curl -v -X POST http://{client_id}:{client_secret}@localhost:8080/oauth/token -d grant_type=**`client_credentials`** -d scope={scope}
+
+```
+$ curl -v -X POST http://client:password@localhost:8080/oauth/token -d grant_type=client_credentials -d scope=read_profile
+```
+
+
+refresh_token
+=====
+
+- command
+
+   - $ curl -v -X POST http://{client_id}:{client_secret}@localhost:8080/oauth/token -d grant_type=**`refresh_token`** -d refresh_token={refresh_token}
+
+```
+$ curl -v -X POST http://client:password@localhost:8080/oauth/token -d grant_type=refresh_token -d refresh_token=eyJhbGciOiJSUzI1Ni..
 ```
