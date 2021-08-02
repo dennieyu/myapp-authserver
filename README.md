@@ -2,12 +2,12 @@ CURL
 =====
 - command
 
-   - $ curl -v -X POST http://{client_id}:{client_secret}@localhost:5088/oauth/token -d grant_type=password -d username={username} -d password={password}
-   - $ curl -v -X POST http://{client_id}:{client_secret}@localhost:5088/oauth/token -d grant_type=refresh_token -d refresh_token={refresh_token}
+   - $ curl -v -X POST http://{client_id}:{client_secret}@localhost:8080/oauth/token -d grant_type=password -d username={username} -d password={password}
+   - $ curl -v -X POST http://{client_id}:{client_secret}@localhost:8080/oauth/token -d grant_type=refresh_token -d refresh_token={refresh_token}
 
 ```
-$ curl -v -X POST http://admin:password@localhost:5088/oauth/token -d grant_type=password -d username=admin01 -d password=password
-$ curl -v -X POST http://admin:password@localhost:5088/oauth/token -d grant_type=refresh_token -d refresh_token=eyJhbGciOiJSUzI1Ni..
+$ curl -v -X POST http://admin:password@localhost:8080/oauth/token -d grant_type=password -d username=admin01 -d password=password
+$ curl -v -X POST http://admin:password@localhost:8080/oauth/token -d grant_type=refresh_token -d refresh_token=eyJhbGciOiJSUzI1Ni..
 ```
 
 REQUEST HEADER

@@ -93,6 +93,10 @@ public class User extends BaseIdEntity implements UserDetails {
 		return username;
 	}
 
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	public String getType() {
 		return type;
 	}

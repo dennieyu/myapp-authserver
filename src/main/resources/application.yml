@@ -1,5 +1,5 @@
 server:
-  port: 5088
+  port: 8080
 
 spring:
   application:
@@ -25,7 +25,7 @@ spring:
     show-sql: false
   http.log-request-details: true
 
-check-user-scopes: true
+check-user-scopes: false
 
 config:
   oauth2.rsa:

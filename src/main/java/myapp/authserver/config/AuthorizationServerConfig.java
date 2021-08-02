@@ -18,6 +18,8 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.OAuth2RequestFactory;
+import org.springframework.security.oauth2.provider.approval.ApprovalStore;
+import org.springframework.security.oauth2.provider.approval.JdbcApprovalStore;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpointAuthenticationFilter;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
@@ -26,7 +28,7 @@ import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFacto
 
 @Configuration
 @EnableAuthorizationServer
-public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {
+public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
 	@Value("${check-user-scopes}")
 	private Boolean checkUserScopes;
@@ -66,12 +68,17 @@ public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {
 	}
 
 	@Bean
+	public ApprovalStore approvalStore() {
+		return new JdbcApprovalStore(dataSource);
+	}
+
+	@Bean
 	public JwtAccessTokenConverter jwtAccessTokenConverter() {
 		JwtAccessTokenConverter converter = new CustomTokenEnhancer();
+		converter.setKeyPair(new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"), "password".toCharArray()).getKeyPair("jwt")); // RS256, keystore
 		// converter.setSigningKey("uangel"); // HS256, a simple MAC key
 		// converter.setSigningKey(privateKey); // RS256, RSA private key
 		// converter.setVerifierKey(publicKey); // RS256, RSA public key
-		converter.setKeyPair(new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"), "password".toCharArray()).getKeyPair("jwt")); // RS256, keystore
 		return converter;
 	}
 
@@ -88,12 +95,19 @@ public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
 		oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
+		// super.configure(oauthServer);
+		// oauthServer.allowFormAuthenticationForClients();
 	}
 
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-		endpoints.tokenStore(tokenStore()).tokenEnhancer(jwtAccessTokenConverter())
-				.authenticationManager(authenticationManager).userDetailsService(userDetailsService);
+		endpoints
+				.approvalStore(approvalStore())
+				.tokenStore(tokenStore())
+				.tokenEnhancer(jwtAccessTokenConverter())
+				.authenticationManager(authenticationManager)
+				.userDetailsService(userDetailsService);
+
 		if (checkUserScopes) {
 			endpoints.requestFactory(requestFactory());
 		}

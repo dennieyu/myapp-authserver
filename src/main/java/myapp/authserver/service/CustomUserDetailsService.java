@@ -23,7 +23,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String input) {
 		User user = userRepository.findByUsername(input);
+		log.info("################################################################");
 		log.info("username={}", input);
+		log.info("################################################################");
 
 		if (user == null) {
 			throw new BadCredentialsException("Bad credentials");
@@ -32,6 +34,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 		}
 
 		new AccountStatusUserDetailsChecker().check(user);
+
+		log.info("AccountStatusUserDetailsChecker.check");
 
 		return user;
 	}

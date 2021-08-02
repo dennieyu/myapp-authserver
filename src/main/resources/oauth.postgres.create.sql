@@ -24,6 +24,43 @@ CREATE TABLE myapp.oauth_client_details (
   CONSTRAINT oauth_client_details_pkey PRIMARY KEY (client_id)
 );
 
+CREATE TABLE myapp.oauth_client_token (
+  token_id VARCHAR(256),
+  token bytea,
+  authentication_id VARCHAR(256),
+  user_name VARCHAR(256),
+  client_id VARCHAR(256)
+);
+
+CREATE TABLE myapp.oauth_access_token (
+  token_id VARCHAR(256),
+  token bytea,
+  authentication_id VARCHAR(256),
+  user_name VARCHAR(256),
+  client_id VARCHAR(256),
+  authentication bytea,
+  refresh_token VARCHAR(256)
+);
+
+CREATE TABLE myapp.oauth_refresh_token (
+  token_id VARCHAR(256),
+  token bytea,
+  authentication bytea
+);
+
+CREATE TABLE myapp.oauth_code (
+  code VARCHAR(256), authentication bytea
+);
+
+CREATE TABLE myapp.oauth_approvals (
+  userId VARCHAR(256),
+  clientId VARCHAR(256),
+  scope VARCHAR(256),
+  status VARCHAR(10),
+  expiresAt TIMESTAMP,
+  lastModifiedAt TIMESTAMP
+);
+
 CREATE TABLE myapp.tbl_oauth_permission (
   id serial NOT NULL,
   name character varying(60),
@@ -82,19 +119,12 @@ INSERT INTO myapp.oauth_client_details (
 	ACCESS_TOKEN_VALIDITY, REFRESH_TOKEN_VALIDITY, 
 	ADDITIONAL_INFORMATION, AUTOAPPROVE)
 	VALUES
-	('admin', 'password', 
+	('client', 'password', 
 	'myapp', 
-	'role_brand, role_chatbot, role_template, role_message', 
-	'authorization_code,password,refresh_token,implicit', 
-	NULL, NULL, 
-	60, 1209600, 
-	'{}', NULL), 
-	('user', 'password', 
-	'myapp', 
-	'role_message', 
-	'authorization_code,password,refresh_token,implicit', 
-	NULL, NULL, 
-	60, 1209600, 
+	'read_profile', 
+	'authorization_code,implicit,password,client_credentials,refresh_token', 
+	'http://localhost:9000/callback', 'role_message', 
+	3600, 86400, 
 	'{}', NULL);
 
 INSERT INTO myapp.tbl_oauth_permission (
@@ -138,8 +168,8 @@ INSERT INTO myapp.tbl_oauth_permission_role (
 INSERT INTO myapp.tbl_oauth_user (
 	USERNAME, PASSWORD, TYPE, ENABLED, ACCOUNT_EXPIRED, CREDENTIALS_EXPIRED, ACCOUNT_LOCKED) 
 	VALUES 
-	('admin01', 'password', 'ADMIN', true, false, false, false), 
-	('user01', 'password', 'USER', true, false, false, false);
+	('admin', 'pass', 'ADMIN', true, false, false, false), 
+	('user', 'pass', 'USER', true, false, false, false);
 
 INSERT INTO myapp.tbl_oauth_role_user (
 	ROLE_ID, USER_ID)
