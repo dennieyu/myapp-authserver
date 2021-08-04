@@ -1,23 +1,26 @@
 authorization_code
 =====
 
-- http://localhost:8080/oauth/authorize?response_type=code&client_id=client&redirect_uri=http%3A%2F%2Flocalhost%3A9000%2Fcallback&scope=read_profile
+- http://localhost:8080/oauth/authorize?response_type=code&client_id=client&redirect_uri=http://localhost:9000/callback&scope=read_profile
 
 - http://localhost:9000/callback?code=rBe22r
 
 - command
 
-   - $ curl -v -X POST http://{client_id}:{client_secret}@localhost:8080/oauth/token -d code={code} -d grant_type=**`authorization_code`** -d redirect_uri={redirect_uri} -d scope={scope}
+   - $ curl -v -X POST http://{client_id}:{client_secret}@localhost:8080/oauth/token -d code={code} -d **`grant_type`**=**`authorization_code`** -d redirect_uri={redirect_uri} -d scope={scope}
 
-```
-$ curl -v -X POST http://client:password@localhost:8080/oauth/token -d code=rBe22r -d grant_type=authorization_code -d redirect_uri={redirect_uri} -d scope=read_profile
-```
+
+- example
+
+	```
+	$ curl -v -X POST http://client:password@localhost:8080/oauth/token -d code=rBe22r -d grant_type=authorization_code -d redirect_uri=http://localhost:9000/callback -d scope=read_profile
+	```
 
 
 implicit
 =====
 
-- http://localhost:8080/oauth/authorize?response_type=token&client_id=client&redirect_uri=http%3A%2F%2Flocalhost%3A9000%2Fcallback&scope=read_profile&state=test
+- http://localhost:8080/oauth/authorize?response_type=token&client_id=client&redirect_uri=http://localhost:9000/callback&scope=read_profile&state=test
 
 - http://localhost:9000/callback#access_token=KpzuGBLYqXGR0RhjgrVyPubOkvA&token_type=bearer&state=test&expires_in=119
 
@@ -27,11 +30,13 @@ password
 
 - command
 
-   - $ curl -v -X POST http://{client_id}:{client_secret}@localhost:8080/oauth/token -d grant_type=**`password`** -d username={username} -d password={password} -d scope={scope}
+   - $ curl -v -X POST http://{client_id}:{client_secret}@localhost:8080/oauth/token -d **`grant_type`**=**`password`** -d username={username} -d password={password} -d scope={scope}
 
-```
-$ curl -v -X POST http://client:password@localhost:8080/oauth/token -d grant_type=password -d username=user -d password=password -d scope=read_profile
-```
+- example
+
+	```
+	$ curl -v -X POST http://client:password@localhost:8080/oauth/token -d grant_type=password -d username=user -d password=password -d scope=read_profile
+	```
 
 #### REQUEST HEADER
 
@@ -94,11 +99,13 @@ client_credentials
 
 - command
 
-   - $ curl -v -X POST http://{client_id}:{client_secret}@localhost:8080/oauth/token -d grant_type=**`client_credentials`** -d scope={scope}
+   - $ curl -v -X POST http://{client_id}:{client_secret}@localhost:8080/oauth/token -d **`grant_type`**=**`client_credentials`** -d scope={scope}
 
-```
-$ curl -v -X POST http://client:password@localhost:8080/oauth/token -d grant_type=client_credentials -d scope=read_profile
-```
+- example
+
+	```
+	$ curl -v -X POST http://client:password@localhost:8080/oauth/token -d grant_type=client_credentials -d scope=read_profile
+	```
 
 
 refresh_token
@@ -106,8 +113,10 @@ refresh_token
 
 - command
 
-   - $ curl -v -X POST http://{client_id}:{client_secret}@localhost:8080/oauth/token -d grant_type=**`refresh_token`** -d refresh_token={refresh_token}
+   - $ curl -v -X POST http://{client_id}:{client_secret}@localhost:8080/oauth/token -d **`grant_type`**=**`refresh_token`** -d refresh_token={refresh_token}
 
-```
-$ curl -v -X POST http://client:password@localhost:8080/oauth/token -d grant_type=refresh_token -d refresh_token=eyJhbGciOiJSUzI1Ni..
-```
+- example
+
+	```
+	$ curl -v -X POST http://client:password@localhost:8080/oauth/token -d grant_type=refresh_token -d refresh_token=eyJhbGciOiJSUzI1Ni..
+	```
