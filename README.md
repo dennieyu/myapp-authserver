@@ -13,7 +13,7 @@ authorization_code
 - example
 
 	```
-	$ curl -v -X POST http://client:password@localhost:8080/oauth/token -d code=rBe22r -d grant_type=authorization_code -d redirect_uri=http://localhost:9000/callback -d scope=read_profile
+	curl -v -X POST http://client:password@localhost:8080/oauth/token -d code=rBe22r -d grant_type=authorization_code -d redirect_uri=http://localhost:9000/callback -d scope=read_profile
 	```
 
 
@@ -35,7 +35,7 @@ password
 - example
 
 	```
-	$ curl -v -X POST http://client:password@localhost:8080/oauth/token -d grant_type=password -d username=user -d password=password -d scope=read_profile
+	curl -v -X POST http://client:password@localhost:8080/oauth/token -d grant_type=password -d username=user -d password=pass -d scope=read_profile
 	```
 
 #### REQUEST HEADER
@@ -104,7 +104,7 @@ client_credentials
 - example
 
 	```
-	$ curl -v -X POST http://client:password@localhost:8080/oauth/token -d grant_type=client_credentials -d scope=read_profile
+	curl -v -X POST http://client:password@localhost:8080/oauth/token -d grant_type=client_credentials -d scope=read_profile
 	```
 
 
@@ -118,5 +118,5 @@ refresh_token
 - example
 
 	```
-	$ curl -v -X POST http://client:password@localhost:8080/oauth/token -d grant_type=refresh_token -d refresh_token=eyJhbGciOiJSUzI1Ni..
+	curl -v -X POST http://client:password@localhost:8080/oauth/token -d grant_type=refresh_token -d refresh_token=eyJhbGciOiJSUzI1Ni..
 	```
